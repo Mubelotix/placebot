@@ -102,10 +102,24 @@ async function run() {
 
             console.log(`(${x},${y},${color})`)
 
-            canvas_index = 0
-            if (x >= 1000) {
-                x -= 1000
-                canvas_index = 1
+            canvas_index = 6
+            switch (x >= 1000, y >= 1000) {
+                case (true, true):
+                    canvas_index = 3
+                    x -= 1000
+                    y -= 1000
+                    break
+                case (true, false):
+                    canvas_index = 1
+                    x -= 1000
+                    break
+                case (false, true):
+                    canvas_index = 2
+                    y -= 1000
+                    break
+                case (false, false):
+                    canvas_index = 6
+                    break
             }
     
             const postResponse = await fetch("https://gql-realtime-2.reddit.com/query", {
