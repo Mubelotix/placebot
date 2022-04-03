@@ -7,7 +7,7 @@
 1) Use a chromium based browser
 2) Log in to reddit
 3) Go to your extension page (chrome://extensions/)
-4) Load the unpacked extension. You might have to enable developer mode
+4) Load the unpacked extension. You might have to enable developer mode (Not necessery if you got the extension from the chrome store)
 5) Click on "service worker" to inspect it and leave that window opened in the background
 6) Go to /r/place
 7) You should see an alert message saying the bot is running. If it doesn't work, make sure you did step 5 correctly.
