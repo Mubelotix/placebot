@@ -85,7 +85,6 @@ qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
             y = getRandomInt(beginy, beginy + height - 1)
             chars = x - beginx
             rows = y - beginy
-            console.log(`(${x},${y})`)
     
             if (lines[rows][chars] == "r") { // red
                 color = 2
@@ -120,6 +119,8 @@ qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
             } else { // if it doesnt recognize the character it just puts black
                 continue main_loop
             }
+            
+            console.log(`(${x},${y},${color})`)
     
             const postResponse = await fetch("https://gql-realtime-2.reddit.com/query", {
             "headers": {
