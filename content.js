@@ -96,6 +96,7 @@ async function run() {
             } else if (lines[rows][chars] == "q") { // black
                 color = 27
             } else { // if it doesnt recognize the character it just puts black
+                console.log("unrecognized char. report this to our discord!")
                 continue main_loop
             }
 
@@ -131,7 +132,7 @@ async function run() {
                 console.log(postString.includes("error"))
             }
         }
-        await sleep(302000) //wait 5 mins and 2 seconds for safety
+        await sleep(302000+getRandomInt(3200, 12000)) //wait 5 mins and 2 seconds for safety
     }
 }
 
