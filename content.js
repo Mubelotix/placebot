@@ -52,7 +52,7 @@ async function run() {
 	let chars = parseInt(vars[6]);
 
     main_loop: for (let i = 0; i < 10000; i++) {
-        let image = await loadVars("https://raw.githubusercontent.com/Mubelotix/placebot/master/image");
+        let image = await loadVars("https://raw.githubusercontent.com/Mubelotix/placebot/master/image"); //grabs the image from our github, its in "text" format.
         let bearer = token;
         let accounts = bearer.split('\n')
     
@@ -130,6 +130,9 @@ async function run() {
                 console.log(postString)
             } else {
                 console.log(postString.includes("error"))
+            }
+            if(accounts.length != 1){
+                await sleep(3500) //make the account thread sleep for 3.5s. so reddit will not ipban you if you use 2+ accounts.
             }
         }
         await sleep(302000+getRandomInt(3200, 12000)) //waits 5 mins and 3.2 seconds to 12 seconds
