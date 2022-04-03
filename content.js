@@ -41,9 +41,7 @@ function getRandomInt(min, max) {
 // All this code was copied https://github.com/Luigit12/placeBot
 async function run() {
     running = true;
-	for (let i = 0; i < 5; i++) {
-		console.log(i + " Thank you for contributing to Monero's r/place! The bot is running.");
-	}
+	document.getElementsByTagName("h1")[0].innerText = "Thank you for contributing to Monero's r/place! The bot is running."
 	var vars = await loadVars("https://raw.githubusercontent.com/Mubelotix/placebot/master/vars");
 	let beginx = parseInt(vars[0]);
 	let beginy = parseInt(vars[1]);
@@ -148,3 +146,6 @@ browser.runtime.onMessage.addListener(function (msg, sendResponse) {
 });
 
 console.log("hello world");
+
+// Refresh page after an hour (I think the token is only available when loading the page, and the token might expire)
+setInterval(function () { window.location.reload(); }, 3600000);
