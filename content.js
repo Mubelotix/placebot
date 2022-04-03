@@ -4,19 +4,32 @@ if (typeof browser === "undefined") {
 
 var token = undefined;
 var running = false;
-
-let beginx = 965
-let beginy = 465
-let width = 100
-let height = 45
-let color = 8
-let rows = 0
-let chars = 0
+//let beginx = 965
+//let beginy = 465
+//let width = 100
+//let height = 45
+//let color = 8
+//let rows = 0
+//let chars = 0
 
 function sleep(ms) {
     return new Promise((resolve) => {
         setTimeout(resolve, ms);
     });
+}
+
+async function loadVars(url) {
+	let response = await fetch(url);
+		
+	if(response.status != 200) {
+		throw new Error("Server Error");
+	}
+		
+	// read response stream as text
+	let text_data = await response.text();
+	text_data = text_data.split('\n');
+
+	return text_data;
 }
 
 function getRandomInt(min, max) {
@@ -28,65 +41,32 @@ function getRandomInt(min, max) {
 // All this code was copied https://github.com/Luigit12/placeBot
 async function run() {
     running = true;
-    alert("The bot is running");
+	for (let i = 0; i < 5; i++) {
+		console.log(i + " Thank you for contributing to Monero's r/place! The bot is running.");
+	}
+	var vars = await loadVars("https://raw.githubusercontent.com/Mubelotix/placebot/master/vars");
+	let beginx = parseInt(vars[0]);
+	let beginy = parseInt(vars[1]);
+	let width = parseInt(vars[2]);
+	let height = parseInt(vars[3]);
+	let color = parseInt(vars[4]);
+	let rows = parseInt(vars[5]);
+	let chars = parseInt(vars[6]);
 
     main_loop: for (let i = 0; i < 10000; i++) {
-        let image = `qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
-qOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOqqqxxxxqqOOOOOOOOOOOOOOOOO
-qOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOqqxxxxxxxxxqqOOOOOOOOOOOOOOO
-qOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOqxxxxxxxxxxxxxqOOOOOOOOOOOOOO
-qOOOOOOOOOOWOOOOOOOOOOOOOOOWOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOqxxxxxxxxxxxxxqOOOOOOOOOOOOOO
-qOOOOOOOOOOWWOOOOOOOOOOOOOWWOOOOOOOOOOOOOOOOOOOOOOOOOOOOqqqqqOOOOOOOOOOqxxxxxxxxxxxxxxxqOOOOOOOOOOOOO
-qOOOOOOOOOOWWWOOOOOOOOOOOWWWOOOOOOOOOOOOOOOOOOOOOOOOOOqqOOOOOqqOOOOOOOqxxxxxxxxxxxxxxxxxqOOOOOOOOOOOO
-qOOOOOOOOOOWWWWOOOOOOOOOWWWWOOOOOOOOOOOOOOOOOOOOOOOOOqOOOOOOOOOqOOOOOqxxxxxxxxxxxxxxxxxxxqOOOOOOOOOOO
-qOOOOOOOOOOWWWWWOOOOOOOWWWWWOOOOOOOOOOOOOOOOOOOOOOOOqOOOOOOOOOOOqOOOOqxxxxxxxxxxxxxxxxxxxqOOOOOOOOOOO
-qOOOOOOOOOOWWWWWWOOOOOWWWWWWOOOOOOOOOOOOOOOOOOOOOOOOqOOOOOOOOOOOqOOOqxxxxxxxOqxxqxxxxxxxxxqOOOOOOOOOO
-qOOOOOOOOOOWWWWWWWOOOWWWWWWWOOOOOOOOOOOOOOOOOOOOOOOqOOWWOOOOOWWOOqOOqxxxxxxOqxxqqxxxxxxxxxqOOOOOOOOOO
-qOOOOOOOOOOWWWWWWWWOWWWWWWWWOOOOOOOOOOOOOOOOOOOOOOOqOOWWOOOOOWWOOqOOqxxxxxxOqxxqqxxxxxxxxxqOOOOOOOOOO
-qOOOOOOOOOOWWWxWWWWWWWWWxWWWOOOOOOOOOOOOOOOOOOOOOOOqOOWWWOOOWWWOOqOOqxxxxxxqqxxq6qxxxxxxxxqOOOOOOOOOO
-qOOOOOOOOOOWWWxxWWWWWWWxxWWWOOOOOOOOOOOOOOOOOOOOOOOqOOWWWWOWWWWOOqOqxxxxxxOqqxxq6qxxxxxxxxxqOOOOOOOOO
-qWWWWWWWWWWWWWxxxWWWWWxxxWWWWWWWWWWWWWWWWWWWWWWWWWWqOOWWWWWWWWWOOqWqxxxxOxqxqxxq66qOxOxxxxxqWWWWWWWWW
-qWWWWWWWWWWWWWxxxxWWWxxxxWWWWWWWWWWWWWWWWWWWWWWWWWWqWWWWxWWWxWWWWqWqxxxxqxqxxxq66qqqOOOxxxxqWWWWWWWWW
-qWWWWWWWWWWWWWxxxxxWxxxxxWWWWWWWWWWWWWWWWWWWWWWWWWWWqWWWxxWxxWWWqWWqxxxxqOqqqOq6q666qxOxxxOqWWWWWWWWW
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqxxxxxxxxxxxqxqxxxxq6q666qq66WqqqOOOxOxqxxxxxxxxx
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqxxxxxxxxxqxxqxxxxq6q666qq66WqqqOOOxOxqxxxxxxxxx
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqqxxxxxqqxxxqxxxxq6qqq6666Wq666qxOxxOqxxxxxxxxx
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqqqqqxxxxxqxxxxqq666qWWWWqqqWqOOxOxqxxxxxxxxx
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqxxqxxxxqqWqqqWWWWqqqq6qOOOOqxxxxxxxxx
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqqqxxxq6qxqxxxOq6qqqqWWWWWWW66qOOOOOqxxxxxxxx
-qxOWxxxxxxxxOWxOWWWWWWxOWxxOWWxOWWWWWxOWWWWWWxOWWWWWWxxq666qxq6WqxqxxxOq6WWWWWWWWWWW66qOOOOOqxxxxxxxx
-qxOWWxxxxxxOWWxOWWWWWWxOWWxOWWxOWWWWWxOWWWWWWxOWWWWWWxq6WWWWq6WWqxqxxxOq6WWWWWWWWWWW6qOOOOOOqxxxxxxxx
-qxOWWWxxxxOWWWxOWWxOWWxOWWxOWWxOWWxxxxOWWxOWWxOWWxOWWxq6WWWW6WW6qqqxxxOqqWWWWWWWWqW66qqOOOOOqqxxxxxxx
-qxOWWWWxxOWWWWxOWWxOWWxOWWWOWWxOWWWWWxOWWxOWWxOWWxOWWxqqWWWWWWWqxqxxxxOOqWWWWWWWWqW66qqOOOOOOqxxxxxxr
-qxOWWWWWOWWWWWxOWWxOWWxOWWWWWWxOWWWWWxOWWWWWxxOWWxOWWxxxqqqWWWWqxqxxxOOOq6WWWWqqqWW66qqqxOOOOOqqqxxry
-qxOWWWWWWWWWWWxOWWxOWWxOWxWWWWxOWWxxxxOWWWWWxxOWWxOWWxxxxxxqWWW6qqxxxOOOOq6WWWWWWW66qqOOqqqqqOOxxqryy
-qxOWWxWWWWWOWWxOWWWWWWxOWxxWWWxOWWxxxxOWWxxWWxOWWWWWWxxxxxxxq6W6qxxxxqOOOOqq66WWW66q6qOOq66WWqOOxxryy
-qxOWWxxWWWxOWWxOWWWWWWxOWxxWWWxOWWWWWxOWWxxWWxOWWWWWWxxxxxxxq6WW6qxxOqOOOOOOqq666qq66qOOq6WWWWqOxryyr
-qxOWWxxxWxxOWWxOWWWWWWxOWxxOWWxOWWWWWxOWWxxWWxOWWWWWWxxxxxxxxqWWW6qOqOOOOOOq66qqq666qOOOq6WWWW6qxryrr
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqqWWW6qOOOOOOOqWqOq6W6qOOOq66WWWWWqryyrr
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqqWWW6qOOOOOOOqWqOq6W6qOOOq66WWWWWqryrrr
-qxWWWxWWWxWxxxWWxWWxWWWxWWWxWWWxWWWxWWWxxxWWWxWWWxWWWxxxxxxxqxxqWWW6qOOOOOqW6qOq6W6qOOOq66WWWWWqryrrr
-qxWxWxWxWxWWWxWxWxWxWxWxWxWxWxWxWxxxWxWxxxWxWxWxxxWxWxxxxxxxqxxOqWWW6qOOOOqWqqOq6WqOOOOq666WWWW6ryrrr
-qxWWWxWWWxWxxxWxWxWxWxWxWxWxWWWxWxxxWxWxxxWxWxWxxxWWWxxxxxxqxxxqq6W666qOOOq6qOOq66qOOOOq666WWWW6ryrry
-qxxxWxWxxxWxxxWxxxWxWxWxWxWxWxxxWxxxWxWxxxWxWxWxxxxxWxxxxxxqxxOqxq6666qqOq6qqOOq6qOOOqOq66q6WWWW6ryry
-qxWWWxWWWxWWWxWxxxWxWWWxWxWxWWWxWxxxWWWxWxWWWxWxxxWWWxxxxxqxxxqxxq666666qqqOOOOq6qOOqqOq666q6WWWWryry
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqxxOqxxxqq66666qqOOOOOqqOOqqqOOq66q6WWWW6ryr
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqxxOqxxxqq66666qqOOOOOqqOOqqqOOq66q6WWWWWryy
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqxxOqxxxxxq66666qqOOqOOqOOOqqqOOq666q6WWWWrry
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqxOqxxxxxxqq6666qOOqqOOOOOqqqqOOq6666q6WWWWrr
-qxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxqxxOqxxxxxxxqq666qOqqqqOOOqqqqqOOOq666q6WWWW6q
-qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq`;
+        let image = await loadVars("https://raw.githubusercontent.com/Mubelotix/placebot/master/image");
         let bearer = token;
         let accounts = bearer.split('\n')
     
         for (const account of accounts) {
-            const lines = image.split('\n')
+            //const lines = image.split('\n')
+			lines = image
             rows = getRandomInt(0, height - 1)
             chars = getRandomInt(0, width - 1)
             x = beginx + chars
             y = beginy + rows
     
-            console.log(`${account} ${x} ${y} ${lines} ${chars} ${rows}`)
+            console.log(`${account} ${x} ${y} ${lines} ${chars} ${rows}`);
             if (lines[rows][chars] == "r") { // red
                 color = 2
             } else if (lines[rows][chars] == "g") { // light green
