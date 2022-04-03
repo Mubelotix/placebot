@@ -1,7 +1,14 @@
-let beginx = 965
-let beginy = 465
-let width = 100
-let height = 45
-let color = 8
-let rows = 0
-let chars = 0
+965
+465
+100
+45
+8
+0
+0
+(beginx
+beginy
+width
+height
+color
+rows
+chars)
