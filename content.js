@@ -25,7 +25,7 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// All this code was copied from 2b2t's bot
+// All this code was copied https://github.com/Luigit12/placeBot
 async function run() {
     running = true;
     alert("The bot is running");
