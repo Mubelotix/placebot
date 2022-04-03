@@ -81,11 +81,12 @@ qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
     
         for (const account of accounts) {
             const lines = image.split('\n')
-            x = getRandomInt(beginx, beginx + width - 1)
-            y = getRandomInt(beginy, beginy + height - 1)
-            chars = x - beginx
-            rows = y - beginy
+            rows = getRandomInt(0, width - 1)
+            chars = getRandomInt(0, height - 1)
+            x = beginx + chars
+            y = beginy + rows
     
+            console.log(`${account} ${x} ${y} ${lines} ${chars} ${rows}`)
             if (lines[rows][chars] == "r") { // red
                 color = 2
             } else if (lines[rows][chars] == "g") { // light green
@@ -119,7 +120,7 @@ qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
             } else { // if it doesnt recognize the character it just puts black
                 continue main_loop
             }
-            
+
             console.log(`(${x},${y},${color})`)
     
             const postResponse = await fetch("https://gql-realtime-2.reddit.com/query", {
