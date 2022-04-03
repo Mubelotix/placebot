@@ -1,7 +1,7 @@
 {
-  "description": "Export your Reddit token",
+  "description": "Help monero on /r/place",
   "manifest_version": 3,
-  "name": "token-exporter",
+  "name": "placebot-monero",
   "version": "1.0",
 
   "permissions": [
