@@ -132,7 +132,7 @@ async function run() {
                 console.log(postString.includes("error"))
             }
         }
-        await sleep(302000+getRandomInt(3200, 12000)) //wait 5 mins and 2 seconds for safety
+        await sleep(302000+getRandomInt(3200, 12000)) //waits 5 mins and 3.2 seconds to 12 seconds
     }
 }
 
