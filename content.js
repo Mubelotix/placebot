@@ -81,8 +81,8 @@ qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
     
         for (const account of accounts) {
             const lines = image.split('\n')
-            rows = getRandomInt(0, width - 1)
-            chars = getRandomInt(0, height - 1)
+            rows = getRandomInt(0, height - 1)
+            chars = getRandomInt(0, width - 1)
             x = beginx + chars
             y = beginy + rows
     
