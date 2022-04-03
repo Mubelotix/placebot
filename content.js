@@ -83,8 +83,8 @@ qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
             const lines = image.split('\n')
             x = getRandomInt(beginx, beginx + width - 1)
             y = getRandomInt(beginy, beginy + height - 1)
-            rows = x - beginx
-            chars = y - beginy
+            chars = x - beginx
+            rows = y - beginy
             console.log(`(${x},${y})`)
     
             if (lines[rows][chars] == "r") { // red
